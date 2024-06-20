@@ -17,6 +17,7 @@
 
 package baritone.pathing.movement.movements;
 
+import baritone.altoclef.AltoClefSettings;
 import baritone.api.IBaritone;
 import baritone.api.pathing.movement.MovementStatus;
 import baritone.api.utils.BetterBlockPos;
@@ -277,7 +278,11 @@ public class MovementDescend extends Movement {
             return true;
         }
         for (int y = 0; y <= 2; y++) { // we could hit any of the three blocks
+            BlockPos p = into.above(y);
             if (MovementHelper.avoidWalkingInto(BlockStateInterface.get(ctx, into.above(y)))) {
+                return true;
+            }
+            if (AltoClefSettings.getInstance().shouldAvoidWalkThroughForce(p)) {
                 return true;
             }
         }

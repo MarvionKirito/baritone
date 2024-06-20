@@ -18,6 +18,7 @@
 package baritone.utils;
 
 import baritone.Baritone;
+import baritone.altoclef.AltoClefSettings;
 import baritone.api.BaritoneAPI;
 import baritone.api.event.events.TickEvent;
 import baritone.api.utils.IInputOverrideHandler;
@@ -86,6 +87,10 @@ public final class InputOverrideHandler extends Behavior implements IInputOverri
     public final void onTick(TickEvent event) {
         if (event.getType() == TickEvent.Type.OUT) {
             return;
+        }
+        if (AltoClefSettings.getInstance().isInteractionPaused()) {
+            setInputForceState(Input.CLICK_LEFT, false);
+            setInputForceState(Input.CLICK_RIGHT, false);
         }
         if (isInputForcedDown(Input.CLICK_LEFT)) {
             setInputForceState(Input.CLICK_RIGHT, false);
